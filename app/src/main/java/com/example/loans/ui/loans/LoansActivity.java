@@ -19,8 +19,8 @@ import com.example.loans.data.remote.model.BaseResponse;
 import com.example.loans.data.remote.model.Data;
 import com.example.loans.data.remote.model.Loan;
 import com.example.loans.databinding.ActivityLoansBinding;
+import com.example.loans.ui.main.LoansAdapter;
 import com.example.loans.ui.main.MainActivity;
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;

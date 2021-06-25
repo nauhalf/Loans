@@ -1,14 +1,11 @@
-package com.example.loans.ui.loans;
+package com.example.loans.ui.main;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.loans.R;
 import com.example.loans.data.remote.model.Loan;
 import com.example.loans.databinding.ItemLoanBinding;
 

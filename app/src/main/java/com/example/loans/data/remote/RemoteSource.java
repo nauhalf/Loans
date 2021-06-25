@@ -15,9 +15,14 @@ public class RemoteSource {
     private static volatile Retrofit RETROFIT = null;
 
     private synchronized static Retrofit getRetrofit() {
+
+        /* SINGLETON PATTERN */
+        //Jika retrofit null
         if (RETROFIT == null) {
             synchronized (RemoteSource.class) {
                 if (RETROFIT == null) {
+
+                    //buat instance retrofit
                     OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
                     if (BuildConfig.DEBUG) {
@@ -44,9 +49,12 @@ public class RemoteSource {
     }
 
     private static ApiService initApiService() {
+        /* SINGLETON PATTERN */
+        //Jika API null
         if (API == null) {
             synchronized (RemoteSource.class) {
                 if (API == null) {
+                    //Buat Instance API
                     API = getRetrofit().create(ApiService.class);
                 }
             }
