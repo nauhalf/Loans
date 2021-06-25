@@ -55,10 +55,10 @@ public class MainActivity extends AppCompatActivity {
         sharedPrefs = new SharedPrefs(this);
 
         // Get Loans dari sharedpreferences
-        List<Loan> tempLoans = sharedPrefs.getLoansList();
+//        List<Loan> tempLoans = sharedPrefs.getLoansList();
 
         //Jika variable loans dari sharedpreferences tidak null, tampilkan constraintList
-        binding.constraintList.setVisibility(loans != null ? View.VISIBLE : View.GONE);
+//        binding.constraintList.setVisibility(loans != null ? View.VISIBLE : View.GONE);
 
         //Buat instance service
         service = RemoteSource.getApiService();
@@ -67,13 +67,13 @@ public class MainActivity extends AppCompatActivity {
         setUp();
 
         // Jika variable tempLoans dari sharedpreferences tidak null maka addAll loans dengan value dari tempLoans dan notifydatasetchanged
-        if (tempLoans != null) {
-            loans.addAll(tempLoans);
-            adapter.notifyDataSetChanged();
-            binding.shimmer.stopShimmer();
-            binding.shimmer.setVisibility(View.GONE);
-            binding.recyclerView.setVisibility(View.VISIBLE);
-        }
+//        if (tempLoans != null) {
+//            loans.addAll(tempLoans);
+//            adapter.notifyDataSetChanged();
+//            binding.shimmer.stopShimmer();
+//            binding.shimmer.setVisibility(View.GONE);
+//            binding.recyclerView.setVisibility(View.VISIBLE);
+//        }
     }
 
     private void setUp() {
@@ -85,55 +85,8 @@ public class MainActivity extends AppCompatActivity {
         //tambahkan garis divider diantara masing-masing item
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(this, RecyclerView.VERTICAL));
 
-
-        //tambahkan textchangedlistener untuk mengatur logic ketika edit text berubah
-        binding.etMemberId.addTextChangedListener(new TextWatcher() {
-
-            //deklarasi countdowntimer untuk mengatur efek debounce edit text
-            CountDownTimer timer = null;
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                //Jika timer tidak null, reset timer dengan cara melakukan cancel
-                if (timer != null) {
-                    timer.cancel();
-                }
-
-
-                //Buat instance timer dan jalankan timer 3 detik, dan interval 1 detik
-                timer = new CountDownTimer(1000, 500) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                        binding.tvState.setText("Mengetik....");
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        binding.tvState.setText("Memanggil API");
-
-                        //Kalau text kosong, jangan panggil api
-                        if(s.length() == 0){
-                            binding.tvState.setText("Harap isi member id");
-                        } else {
-                            //ketika timer selesai, ambil data dari api
-                            getData(s.toString());
-                        }
-
-                    }
-                }.start();
-            }
-        });
+        binding.tvMemberId.setText("3");
+        getData(binding.tvMemberId.getText().toString());
     }
 
     private void getData(String memberId) {
@@ -151,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
         service.getLoans(memberId).enqueue(new Callback<BaseResponse<Data>>() {
             @Override
             public void onResponse(@NotNull Call<BaseResponse<Data>> call, @NotNull Response<BaseResponse<Data>> response) {
-                binding.tvState.setText("");
 
                 if (response.code() != 200) {
                     try {
@@ -183,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NotNull Call<BaseResponse<Data>> call, @NotNull Throwable t) {
-                binding.tvState.setText("");
 
                 //Tampilkan pesan error
                 Toast.makeText(MainActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
