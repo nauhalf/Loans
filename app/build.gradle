@@ -23,7 +23,7 @@ android {
         }
 
         debug {
-            buildConfigField "String", "BASE_URL", "\"http://192.168.88.33:8080/joki/\""
+            buildConfigField "String", "BASE_URL", "\"http://192.168.0.8:8080/joki/\""
         }
 
     }

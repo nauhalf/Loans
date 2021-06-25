@@ -50,11 +50,15 @@ public class LoansActivity extends AppCompatActivity {
         sharedPrefs = new SharedPrefs(this);
 
         if (!getIntent().hasExtra(MEMBER_ID)) {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            return;
+            loans = sharedPrefs.getLoansList();
+            if(loans == null){
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                return;
+            }
         }
+
         memberId = getIntent().getStringExtra(MEMBER_ID);
         service = RemoteSource.getApiService();
         setUp();
